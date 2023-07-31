@@ -1,0 +1,25 @@
+version: "3"
+
+networks:
+    default:
+        driver: bridge
+
+services:
+    server:
+        build: ./server
+        ports:
+            - "5000:5000"
+        container_name: server-container
+        networks:
+            - default
+        restart: always
+    updater:
+        build: ./updater
+        ports:
+            - "5001:5001"
+        container_name: updater-container
+        networks:
+            - default
+        depends_on:
+            - server
+        restart: always
